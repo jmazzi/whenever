@@ -24,9 +24,11 @@ module Whenever
 
         def whenever_prepare_for_rollback args
           if fetch(:previous_release)
+            puts "Using previous_release #{fetch(:previous_release)}"
             # rollback to the previous release's crontab
             args[:path] = fetch(:previous_release)
           else
+            puts "Using release_path #{fetch(:release_path)}"
             # clear the crontab if no previous release
             args[:path]  = fetch(:release_path)
             args[:flags] = fetch(:whenever_clear_flags)

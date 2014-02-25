@@ -23,9 +23,11 @@ Capistrano::Configuration.instance(:must_exist).load do
 
       if whenever_servers.any?
         args = whenever_prepare_for_rollback(args) if task_call_frames[0].task.fully_qualified_name == 'deploy:rollback'
+        puts "Here are the final args: #{args.inspect}"
         whenever_run_commands(args)
 
         on_rollback do
+          puts "Rolling back with args: #{args.inspect}"
           args = whenever_prepare_for_rollback(args)
           whenever_run_commands(args)
         end
